@@ -45,15 +45,15 @@ The switch reported the interface going down:
 %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/0, changed state to down
 ```
 
-The OSPF adjacency with the neighboring Branch device also transitioned from `FULL` to `DOWN`:
+The OSPF adjacency associated with the interface also transitioned from `FULL` to `DOWN`:
 
 ```text
 %OSPF-5-ADJCHG: Process 1, Nbr 10.10.20.1 on Ethernet0/0 from FULL to DOWN, Neighbor Down: Interface down or detached
 ```
 
-This confirmed that the failure was detected by the routing layer.
+This confirmed that the link failure was detected by the OSPF routing process and triggered routing convergence.
 
----
+----
 
 ## 4. Connectivity During Failure
 

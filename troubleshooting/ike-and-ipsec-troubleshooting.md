@@ -10,11 +10,9 @@ The purpose is to document the actual issues encountered during implementation, 
 
 ## 2. Initial Condition
 
-The HQ-SRX and Branch-SRX were configured with matching high-level IKE and IPsec parameters.
+The HQ-SRX and Branch-SRX had been configured with IKE and IPsec parameters, but the VPN did not initially establish.
 
-However, the VPN did not initially establish.
-
-The troubleshooting process therefore started by verifying the IKE and IPsec configuration and checking the security associations on both SRXs.
+The troubleshooting process therefore started by comparing the IKE and IPsec configuration and checking the security associations on both SRXs.
 
 ---
 
@@ -91,9 +89,9 @@ At this point, the configuration parameters had been reviewed, but the VPN still
 
 The next stage of troubleshooting focused on the security policies associated with the policy-based VPN.
 
-The relevant policies were allowing traffic but were not yet associated with the IPsec VPN through a tunnel action.
+The relevant policies did not include the tunnel action required to associate the matching traffic with the configured IPsec VPN.
 
-The required action was added to the security policies:
+The following action was added to the security policies:
 
 ```text
 then permit tunnel ipsec-vpn ipsec-vpn
@@ -101,7 +99,7 @@ then permit tunnel ipsec-vpn ipsec-vpn
 
 This was configured for the relevant internal-to-remote-zone policies on both HQ-SRX and Branch-SRX.
 
-This was the key change that allowed the policy-based VPN traffic to be associated with the configured IPsec VPN.
+This was the key configuration change that allowed the policy-based VPN traffic to be associated with the configured IPsec VPN.
 
 ---
 
@@ -122,7 +120,7 @@ Index   State  Initiator cookie  Responder cookie  Mode   Remote Address
 1512635 UP     a296c603e4746996  e3c175f78f62f6ee  Main   10.10.30.1
 ```
 
-The IKE state changed to:
+The IKE state was:
 
 ```text
 UP
@@ -209,9 +207,9 @@ IPsec SA established
 
 The troubleshooting process demonstrated several important points about policy-based IPsec on Junos:
 
-- Matching IKE and IPsec parameters must be verified on both peers.
-- IKE Phase 1 and IPsec Phase 2 are separate negotiation stages.
-- IKE DH and IPsec PFS are separate parameters.
-- An established VPN configuration still depends on the security policy correctly associating traffic with the IPsec VPN.
-- `show security ike security-associations` and `show security ipsec security-associations` are useful for distinguishing between Phase 1 and Phase 2 problems.
-- Tunnel establishment alone does not prove end-to-end LAN connectivity; routing and traffic testing must be verified separately.
+* IKE and IPsec parameters should be compared and verified on both peers.
+* IKE Phase 1 and IPsec Phase 2 are separate negotiation stages.
+* IKE DH and IPsec PFS are separate parameters.
+* Policy-based VPN traffic depends on the security policy correctly associating matching traffic with the configured IPsec VPN.
+* `show security ike security-associations` and `show security ipsec security-associations` are useful for distinguishing between Phase 1 and Phase 2 problems.
+* Tunnel establishment alone does not prove end-to-end LAN connectivity; routing and traffic testing must be verified separately.

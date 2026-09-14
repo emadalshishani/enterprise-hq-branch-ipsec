@@ -110,7 +110,7 @@ The verification confirmed the following state:
 | HQ-SRX IPsec SA | Active |
 | Branch-SRX IPsec SA | Active |
 | Active IPsec tunnels | 1 |
-| VPN peer reachability | Established |
+| VPN peer / IPsec tunnel state | Established |
 
 At this stage, the VPN control plane was successfully established.
 
