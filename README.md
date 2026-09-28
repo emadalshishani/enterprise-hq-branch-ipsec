@@ -91,22 +91,3 @@ Detailed configuration, testing, and troubleshooting documentation will be added
 ### Documentation
 
 The configuration and troubleshooting process is being documented progressively in this repository.
-
----
-
-## Expanded Multi-AS BGP Lab
-
-The repository now also contains the expanded multi-autonomous-system lab:
-
-**[Multi-AS BGP Lab](bgp-lab/README.md)**
-
-The expansion documents:
-- six autonomous systems (AS100, AS200, AS1000, AS2000, AS3000, AS4000)
-- Juniper/Cisco multi-vendor BGP interconnection
-- IS-IS and OSPF internal routing
-- eBGP/iBGP routing domains
-- dual ISP connectivity
-- BGP verification
-- documented failure and end-to-end ISP failover testing
-
-The BGP lab configuration copies are sanitized before publication. Credentials and authentication secrets are not published.
